@@ -25,13 +25,13 @@ def make_event(title, start, end):
 
 
 def make_events(city, today, tomorrow):
-    sunset = city.sunset(date=today)
+    #sunset = city.sunset(date=today)
     dusk = city.dusk(date=today)
     dawn = city.dawn(date=tomorrow)
-    sunrise = city.sunrise(date=tomorrow)
-    yield make_event('Hämärä', sunset, dusk)
+    #sunrise = city.sunrise(date=tomorrow)
+    #yield make_event('Hämärä', sunset, dusk)
     yield make_event('Pimeä', dusk, dawn)
-    yield make_event('Hämärä', dawn, sunrise)
+    #yield make_event('Hämärä', dawn, sunrise)
 
 
 def write(cal):
