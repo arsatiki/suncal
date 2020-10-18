@@ -49,8 +49,10 @@ def make_cal(city, dates):
 
 
 def main():
-    info = LocationInfo(('Koti', 'Finland', 60.191095,
-                         24.802785, 'Europe/Helsinki', 10))
+    info = LocationInfo(
+        'Koti', 'Finland', 'Europe/Helsinki', 60.191095, 24.802785,
+    )
+
     city = Location(info)
     start = date.today()
     dates = (start + timedelta(days=k) for k in range(1, 129))
