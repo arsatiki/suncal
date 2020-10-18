@@ -2,7 +2,8 @@
 from collections import deque
 from datetime import date, timedelta
 
-from astral import Astral, Location, SUN_RISING, SUN_SETTING
+from astral import LocationInfo
+from astral.location import Location
 from icalendar import Calendar, Event
 
 
@@ -25,17 +26,13 @@ def make_event(title, start, end):
 
 
 def make_events(city, today, tomorrow):
-    #sunset = city.sunset(date=today)
     dusk = city.dusk(date=today)
     dawn = city.dawn(date=tomorrow)
-    #sunrise = city.sunrise(date=tomorrow)
-    #yield make_event('Hämärä', sunset, dusk)
     yield make_event('Pimeä', dusk, dawn)
-    #yield make_event('Hämärä', dawn, sunrise)
 
 
 def write(cal):
-    with open('out.ics', 'w') as f:
+    with open('out.ics', 'wb') as f:
         f.write(cal.to_ical())
 
 
@@ -52,14 +49,11 @@ def make_cal(city, dates):
 
 
 def main():
-    a = Astral()
-    a.solar_depression = 'civil'
-    # city = a['Helsinki']
-    city = Location(('Koti', 'Finland', 60.191095,
-                     24.802785, 'Europe/Helsinki', 10))
-    city.sun()
+    info = LocationInfo(('Koti', 'Finland', 60.191095,
+                         24.802785, 'Europe/Helsinki', 10))
+    city = Location(info)
     start = date.today()
-    dates = (start + timedelta(days=k) for k in range(1, 90))
+    dates = (start + timedelta(days=k) for k in range(1, 129))
 
     write(make_cal(city, dates))
 
